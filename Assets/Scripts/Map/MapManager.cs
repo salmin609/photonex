@@ -63,7 +63,7 @@ public class MapManager : MonoBehaviourPunCallbacks
         //} while (!Search());
         ClearList();
         SetGrid();
-        //SetItem();
+        SetItem();
     }
 
     void SetItem()
@@ -73,9 +73,18 @@ public class MapManager : MonoBehaviourPunCallbacks
             int randomIndexX = Utils.Util.GetRandomPosInInt(0, 80);
             int randomIndexY = Utils.Util.GetRandomPosInInt(0, 80);
 
-            Utils.Util.InstanceGameObject(item, new Vector3(randomIndexX, randomIndexY), Utils.ObjKind.Item);
+            //all map manager need to do setting
+            photonView.RPC("InstanceItem", RpcTarget.All, randomIndexX, randomIndexY);
+            //Utils.Util.InstanceGameObject(item, new Vector3(randomIndexX, randomIndexY), Utils.ObjKind.Item);
         }
     }
+
+    [PunRPC]
+    private void InstanceItem(int x, int y)
+    {
+        Utils.Util.InstanceGameObject(item, new Vector3(x, y), Utils.ObjKind.Item);
+    }
+
     void SetPos()
     {
         int index = 0;
