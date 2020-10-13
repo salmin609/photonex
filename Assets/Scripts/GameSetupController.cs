@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameSetupController : MonoBehaviour
 {
     private GameObject checkObj;
+    [SerializeField] private GameObject check;
     void Start()
     {
         CreatePlayer();
@@ -19,30 +20,6 @@ public class GameSetupController : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             checkObj.GetComponent<MapManager>().Init();
-            //checkObj = PhotonNetwork.Instantiate("Check", new Vector3(6f, 0f), Quaternion.identity);
-            if (checkObj)
-            {
-                Debug.Log("ckck1");
-            }
-            else
-            {
-                Debug.Log("ckck2");
-            }
-        }
-
-        PhotonNetwork.Instantiate("Camera", Vector3.zero, Quaternion.identity);
-
-
-    }
-
-    void Update()
-    {
-        if (checkObj)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                PhotonNetwork.Destroy(checkObj);
-            }
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{89546B22-6E17-4D79-DAAE-761F5BCF45FD}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Demos", "PhotonUnityNetworking.Demos.csproj", "{F50E6F5A-AEF9-7A16-A47C-C388076686E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Utilities", "PhotonUnityNetworking.Utilities.csproj", "{95922BBB-EBBA-2A87-0771-8F96D065F72C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{89546B22-6E17-4D79-DAAE-761F5BCF45FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonChat", "PhotonChat.csproj", "{6B9A1E6E-B70D-8844-1D88-6B5ADB2D05B2}"
 EndProject
@@ -31,6 +31,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F50E6F5A-AEF9-7A16-A47C-C388076686E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F50E6F5A-AEF9-7A16-A47C-C388076686E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F50E6F5A-AEF9-7A16-A47C-C388076686E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,10 +43,6 @@ Global
 		{95922BBB-EBBA-2A87-0771-8F96D065F72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95922BBB-EBBA-2A87-0771-8F96D065F72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95922BBB-EBBA-2A87-0771-8F96D065F72C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89546B22-6E17-4D79-DAAE-761F5BCF45FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B9A1E6E-B70D-8844-1D88-6B5ADB2D05B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B9A1E6E-B70D-8844-1D88-6B5ADB2D05B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B9A1E6E-B70D-8844-1D88-6B5ADB2D05B2}.Release|Any CPU.ActiveCfg = Release|Any CPU

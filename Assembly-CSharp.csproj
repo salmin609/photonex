@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\QuickStart\QuickStartLobbyController.cs" />
     <Compile Include="Assets\Scripts\QuickStart\QuickStartRoomContoller.cs" />
     <Compile Include="Assets\Scripts\Util\Utils.cs" />
+    <Compile Include="Assets\Scripts\WallBehavior.cs" />
     <Compile Include="Assets\check.cs" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />

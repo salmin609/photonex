@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -28,6 +29,12 @@ namespace Assets.Scripts.Player
 
             if (colInfo)
             {
+                GridSprite gridInfo = colInfo.gameObject.GetComponent<GridSprite>();
+
+                if (gridInfo)
+                {
+                    Utils.Util.DeleteGameObj(colInfo.gameObject);
+                }
                 return false;
             }
             return true;

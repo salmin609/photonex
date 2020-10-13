@@ -5,35 +5,24 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    private PhotonView photonView;
     private GameObject[] players;
     private GameObject player;
     void Start()
     {
-        photonView = GetComponent<PhotonView>();
+        players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (!photonView.IsMine)
+        foreach (GameObject obj in players)
         {
-            gameObject.SetActive(false);
+            if (obj.GetComponent<PhotonView>().IsMine)
+            {
+                player = obj;
+            }
         }
     }
 
     void Update()
     {
-        if (photonView.IsMine)
-        {
-            players = GameObject.FindGameObjectsWithTag("Player");
-
-            foreach (GameObject obj in players)
-            {
-                if (obj.GetComponent<PhotonView>().IsMine)
-                {
-                    player = obj;
-                }
-            }
-
-            Vector3 playerTrans = player.transform.position;
-            transform.position = new Vector3(playerTrans.x, playerTrans.y, -10f);
-        }
+        Vector3 playerTrans = player.transform.position;
+        transform.position = new Vector3(playerTrans.x, playerTrans.y, -10f);
     }
 }

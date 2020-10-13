@@ -31,69 +31,51 @@ public class MapManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject grid;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject gridPrefabs;
+    [SerializeField] private GameObject item;
 
-    private int width = 8;
-    private int height = 8;
+    private int width = 80;
+    private int height = 80;
     private GameObject[] grids;
     private List<GridInfo> gridPos;
     private Stack<GridInfo> find;
     private int playerStartPosx;
     private int playerStartPosy;
+    private int itemNum = 10;
 
-    //public override void OnEnable()
-    //{
-    //    PhotonNetwork.AddCallbackTarget(this);
-    //    Init();
-    //}
-    //public override void OnDisable()
-    //{
-    //    PhotonNetwork.RemoveCallbackTarget(this);
-    //}
     void Start()
     {
-        //photonView = GetComponent<PhotonView>();
-        //if (photonView.IsMine)
-        //{
-        //    Init();
-        //}
-        //Debug.Log("Why");
-        //playerStartPosx = 1;
-        //playerStartPosy = 1;
-        //grids = new GameObject[width * height];
-        //gridPos = new List<GridInfo>();
-        //find = new Stack<GridInfo>();
+    }
+
+    public void Init()
+    {
+        photonView = GetComponent<PhotonView>();
+        playerStartPosx = 1;
+        playerStartPosy = 1;
+        grids = new GameObject[width * height];
+
+        gridPos = new List<GridInfo>();
+        find = new Stack<GridInfo>();
 
         //do
         //{
         //    ClearList();
         //} while (!Search());
-
-        //SetGrid();
-        ////Instantiate(player, new Vector3(playerStartPosx, playerStartPosy), Quaternion.identity);
-        //PhotonNetwork.Instantiate("Player", new Vector3(playerStartPosx, playerStartPosy), Quaternion.identity);
-    }
-
-    public void Init()
-    {
-        Debug.Log("Why");
-        photonView = GetComponent<PhotonView>();
-        playerStartPosx = 1;
-        playerStartPosy = 1;
-        grids = new GameObject[width * height];
-        
-        gridPos = new List<GridInfo>();
-        find = new Stack<GridInfo>();
-
-        do
-        {
-            ClearList();
-        } while (!Search());
-
+        ClearList();
         SetGrid();
-        //Instantiate(player, new Vector3(playerStartPosx, playerStartPosy), Quaternion.identity);
-        //PhotonNetwork.Instantiate("Player", new Vector3(playerStartPosx, playerStartPosy), Quaternion.identity);
+        //SetItem();
     }
 
+    void SetItem()
+    {
+        for (int i = 0; i < itemNum; ++i)
+        {
+            int randomIndexX = Utils.Util.GetRandomPosInInt(0, 80);
+            int randomIndexY = Utils.Util.GetRandomPosInInt(0, 80);
+
+            Utils.Util.InstanceGameObject(item, new Vector3(randomIndexX, randomIndexY), Utils.ObjKind.Item);
+        }
+    }
     void SetPos()
     {
         int index = 0;
@@ -136,51 +118,35 @@ public class MapManager : MonoBehaviourPunCallbacks
 
     void SetGrid()
     {
-        int count = 0;
-        //GameObject parent = Instantiate(new GameObject("Grid Parent"), new Vector3(0f, 0f), Quaternion.identity);
-        GameObject parent = PhotonNetwork.Instantiate("GridParentPrefab", Vector3.zero, Quaternion.identity);
-        
         for (int i = 0; i < height; ++i)
         {
             for (int j = 0; j < width; ++j)
             {
                 int index = TwoDtoOneD(j, i);
-
-                GameObject obj = PhotonNetwork.Instantiate("GridPrefab", Vector3.zero, Quaternion.identity);
-
-                //photonView.RPC("AddGridInfo", RpcTarget.AllBuffered, obj);
-                obj.name = count.ToString();
-                count++;
-                obj.transform.position = new Vector3(j, i, 0);
-                //obj.GetComponent<GridSprite>().SetSpriteType();
-                //obj.layer = LayerMask.NameToLayer("ColliderLayer");
-                //obj.transform.SetParent(parent.transform);
-
-                if (gridPos[index].isWall)
-                {
-                    obj.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Wall);
-
-                    //obj.AddComponent<SpriteRenderer>().sprite =
-                    //    grid.GetComponent<Grid>().GetRandomWallSprite();
-                    //obj.AddComponent<BoxCollider2D>();
-                    //obj.layer = LayerMask.NameToLayer("ColliderLayer");
-                }
-                else if (gridPos[index].isEnd)
-                {
-                    //obj.AddComponent<SpriteRenderer>().sprite =
-                    //    grid.GetComponent<Grid>().GetEndSprite();
-                    obj.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.End);
-                }
-                else
-                {
-                    //obj.AddComponent<SpriteRenderer>().sprite =
-                    //    grid.GetComponent<Grid>().GetRandomGroundSprite();
-                    obj.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Land);
-                }
-
+                photonView.RPC("InstantiateMapGrid", RpcTarget.All, new Vector3(j, i, 0), gridPos[index].isWall, gridPos[index].isEnd);
             }
         }
     }
+
+    [PunRPC]
+    private void InstantiateMapGrid(Vector3 pos, bool isWall, bool isEnd)
+    {
+        var gridGo = Utils.Util.InstanceGameObject(gridPrefabs, pos);
+
+        if (isWall)
+        {
+            gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Wall);
+        }
+        else if (isEnd)
+        {
+            gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.End);
+        }
+        else
+        {
+            gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Land);
+        }
+    }
+
 
     bool Search()
     {
@@ -245,10 +211,5 @@ public class MapManager : MonoBehaviourPunCallbacks
         return y * width + x;
     }
 
-    [PunRPC]
-    void AddGridInfo(GameObject gridInfoToAdd)
-    {
-        gridInfoToAdd.name = "1";
-        gridInfoToAdd.AddComponent<SpriteRenderer>().sprite = grid.GetComponent<Grid>().GetRandomGroundSprite();
-    }
+
 }

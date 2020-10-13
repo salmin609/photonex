@@ -17,24 +17,16 @@ public class GridSprite : MonoBehaviour
     [SerializeField] private Sprite[] groundSprite;
     [SerializeField] private Sprite[] wallSprite;
     [SerializeField] private Sprite endSprite;
-    private PhotonView photonView;
+
+    [SerializeField] private Sprite wallBreakSprite1;
+    [SerializeField] private Sprite wallBreakSprite2;
     private Type spriteType = Type.None;
 
     void Start()
     {
         spriteRender = GetComponent<SpriteRenderer>();
-        photonView = GetComponent<PhotonView>();
-
-        if (photonView.IsMine)
-        {
-            if (!spriteRender)
-            {
-                photonView.RPC("SpriteRPC", RpcTarget.All);
-            }
-        }
     }
 
-    [PunRPC]
     void SpriteRPC()
     {
         spriteRender = gameObject.AddComponent<SpriteRenderer>();
@@ -53,15 +45,48 @@ public class GridSprite : MonoBehaviour
                 break;
         }
     }
-    [PunRPC]
     public void SetSpriteType(Type type)
     {
-        photonView = GetComponent<PhotonView>();
-
-        if (spriteType == Type.None)
+        if (!spriteRender)
         {
-            spriteType = type;
-            photonView.RPC("SetSpriteType", RpcTarget.All, type);
+            spriteRender = GetComponent<SpriteRenderer>();
+        }
+
+        switch (type)
+        {
+            case Type.None:
+                break;
+            case Type.Land:
+                spriteRender.sprite = groundSprite[0];
+                gameObject.layer = LayerMask.NameToLayer("Default");
+                break;
+            case Type.Wall:
+                spriteRender.sprite = wallSprite[0];
+                gameObject.layer = LayerMask.NameToLayer("ColliderLayer");
+                break;
+            case Type.End:
+                spriteRender.sprite = endSprite;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
     }
+
+    public void WallToGroundSpriteChange(int hp)
+    {
+        if (hp <= 0)
+        {
+            spriteRender.sprite = groundSprite[0];
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+        else if (hp <= 2)
+        {
+            spriteRender.sprite = wallBreakSprite2;
+        }
+        else if (hp <= 4)
+        {
+            spriteRender.sprite = wallBreakSprite1;
+        }
+    }
+
 }

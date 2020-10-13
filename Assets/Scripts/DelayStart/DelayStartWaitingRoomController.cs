@@ -131,6 +131,7 @@ public class DelayStartWaitingRoomController : MonoBehaviourPunCallbacks
             return;
         }
         PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.Instantiate("UtilObj", Vector3.zero, Quaternion.identity);
         PhotonNetwork.LoadLevel(multiplayerSceneIndex);
     }
 

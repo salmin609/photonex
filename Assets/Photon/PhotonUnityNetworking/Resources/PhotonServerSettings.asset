@@ -43,6 +43,13 @@ MonoBehaviour:
   - AddGridInfo
   - SpriteRPC
   - SetSpriteType
+  - Search
+  - InstantiateMapGrid
+  - DeleteObjInRPC
+  - BreakWallTile
+  - SetItem
+  - DeleteGameObj
+  - Instance
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
