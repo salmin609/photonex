@@ -7,13 +7,18 @@ public class PlayerMovement : MonoBehaviour
 {
     private PhotonView photonView;
     private CharacterController characterController;
-    public float moveSpeed;
-    public float rotationSpeed;
-
+    //private Rigidbody rigidBody;
+    private float moveSpeed;
+    private Animator chickenAnimator;
+    private Vector3 movementDir;
+    private LayerMask colliderLayer;
     void Start()
     {
         photonView = GetComponent<PhotonView>();
         characterController = GetComponent<CharacterController>();
+        moveSpeed = 300f;
+        chickenAnimator = transform.GetChild(0).GetComponent<Animator>();
+        colliderLayer = LayerMask.NameToLayer("ColliderLayer");
     }
 
     void Update()
@@ -21,33 +26,31 @@ public class PlayerMovement : MonoBehaviour
         if (photonView.IsMine)
         {
             Movement();
-            Rotation();
         }
     }
+
 
     void Movement()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            characterController.Move(transform.forward * Time.deltaTime * moveSpeed);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            characterController.Move(-transform.right * Time.deltaTime * moveSpeed);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            characterController.Move(-transform.forward * Time.deltaTime * moveSpeed);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            characterController.Move(transform.right * Time.deltaTime * moveSpeed);
-        }
-    }
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-    void Rotation()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
-        transform.Rotate(new Vector3(0f, mouseX, 0));
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+            characterController.SimpleMove(direction * moveSpeed * Time.deltaTime);
+
+            if (chickenAnimator)
+            {
+                chickenAnimator.SetBool("Run", true);
+            }
+        }
+        else
+        {
+            chickenAnimator.SetBool("Run", false);
+        }
     }
 }

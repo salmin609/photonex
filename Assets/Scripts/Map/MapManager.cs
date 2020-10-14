@@ -34,8 +34,8 @@ public class MapManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject gridPrefabs;
     [SerializeField] private GameObject item;
 
-    private int width = 80;
-    private int height = 80;
+    private int width = 30;
+    private int height = 30;
     private GameObject[] grids;
     private List<GridInfo> gridPos;
     private Stack<GridInfo> find;
@@ -57,11 +57,11 @@ public class MapManager : MonoBehaviourPunCallbacks
         gridPos = new List<GridInfo>();
         find = new Stack<GridInfo>();
 
-        //do
-        //{
-        //    ClearList();
-        //} while (!Search());
-        ClearList();
+        do
+        {
+            ClearList();
+        } while (!Search());
+        //ClearList();
         SetGrid();
         SetItem();
     }
@@ -132,7 +132,12 @@ public class MapManager : MonoBehaviourPunCallbacks
             for (int j = 0; j < width; ++j)
             {
                 int index = TwoDtoOneD(j, i);
-                photonView.RPC("InstantiateMapGrid", RpcTarget.All, new Vector3(j, i, 0), gridPos[index].isWall, gridPos[index].isEnd);
+                //photonView.RPC("InstantiateMapGrid", RpcTarget.All, new Vector3(j, i, 0), gridPos[index].isWall, gridPos[index].isEnd);
+
+                if (gridPos[index].isWall)
+                {
+                    photonView.RPC("InstantiateMapGrid", RpcTarget.All, new Vector3(j, 0, i), gridPos[index].isWall, gridPos[index].isEnd);
+                }
             }
         }
     }
@@ -142,18 +147,18 @@ public class MapManager : MonoBehaviourPunCallbacks
     {
         var gridGo = Utils.Util.InstanceGameObject(gridPrefabs, pos);
 
-        if (isWall)
-        {
-            gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Wall);
-        }
-        else if (isEnd)
-        {
-            gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.End);
-        }
-        else
-        {
-            gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Land);
-        }
+        //if (isWall)
+        //{
+        //    gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Wall);
+        //}
+        //else if (isEnd)
+        //{
+        //    gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.End);
+        //}
+        //else
+        //{
+        //    gridGo.GetComponent<GridSprite>().SetSpriteType(GridSprite.Type.Land);
+        //}
     }
 
 

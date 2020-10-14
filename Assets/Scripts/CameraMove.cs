@@ -7,6 +7,11 @@ public class CameraMove : MonoBehaviour
 {
     private GameObject[] players;
     private GameObject player;
+    private Transform target;
+    private float smoothSpeed;
+    [SerializeField]
+    private Vector3 offset;
+    
     void Start()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -18,11 +23,24 @@ public class CameraMove : MonoBehaviour
                 player = obj;
             }
         }
+
+        target = player.transform;
+        smoothSpeed = 0.125f;
+        offset = new Vector3(0f, 5f, -6f);
+
+        Vector3 desiredPos = target.position + offset;
+        transform.position = desiredPos;
+        transform.LookAt(target);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 playerTrans = player.transform.position;
-        transform.position = new Vector3(playerTrans.x, playerTrans.y, -10f);
+        //Vector3 playerTrans = player.transform.position;
+        //transform.position = new Vector3(playerTrans.x, playerTrans.y, -10f);
+
+        Vector3 desiredPos = target.position + offset;
+        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+        transform.position = smoothedPos;
+        //transform.LookAt(target);
     }
 }

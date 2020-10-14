@@ -28,23 +28,23 @@ namespace Assets.Scripts.Player
         {
             if (inputTerm)
             {
-                if (Input.anyKeyDown)
+                if (Input.anyKey)
                 {
                     PlayerInputInfo input = default;
 
-                    if (Input.GetKeyDown(KeyCode.W))
+                    if (Input.GetKey(KeyCode.W))
                     {
                         input.vertical = 1f;
                     }
-                    else if (Input.GetKeyDown(KeyCode.S))
+                    else if (Input.GetKey(KeyCode.S))
                     {
                         input.vertical = -1f;
                     }
-                    else if(Input.GetKeyDown(KeyCode.A))
+                    else if(Input.GetKey(KeyCode.A))
                     {
                         input.horizontal = -1f;
                     }
-                    else if (Input.GetKeyDown(KeyCode.D))
+                    else if (Input.GetKey(KeyCode.D))
                     {
                         input.horizontal = 1f;
                     }

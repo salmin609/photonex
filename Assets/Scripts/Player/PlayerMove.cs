@@ -7,19 +7,23 @@ namespace Assets.Scripts.Player
     {
         private readonly Transform playerTransform;
         private readonly LayerMask collisionLayer;
+        private float speed;
         public PlayerMove(Transform playerTransform = null)
         {
             this.playerTransform = playerTransform ? playerTransform : GameObject.Find("Player").transform;
             collisionLayer = LayerMask.GetMask("ColliderLayer");
+            speed = 30f;
         }
 
         public void Update(PlayerInputInfo inputInfo)
         {
-            Vector3 nextPos = playerTransform.position + new Vector3(inputInfo.horizontal, inputInfo.vertical, 0f);
+            Vector3 nextPos = playerTransform.position + new Vector3(inputInfo.horizontal, 0f, inputInfo.vertical);
 
             if (CheckNextMoveBlocked(nextPos))
             {
-                playerTransform.position = nextPos;
+                float timeMultiplySpeed = Time.deltaTime * speed;
+                playerTransform.position += new Vector3(inputInfo.horizontal * timeMultiplySpeed, 0f,
+                    inputInfo.vertical * timeMultiplySpeed);
             }
         }
 
