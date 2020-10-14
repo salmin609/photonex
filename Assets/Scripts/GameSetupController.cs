@@ -14,7 +14,7 @@ public class GameSetupController : MonoBehaviour
     private void CreatePlayer()
     {
         Debug.Log("Creating Player..");
-        PhotonNetwork.Instantiate("PhotonPlayer", new Vector3(1f, 0f, 1f), Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", new Vector3(1f, 1f), Quaternion.identity);
         checkObj = PhotonNetwork.Instantiate("MapManager", new Vector3(0f, 0f), Quaternion.identity);
 
         if (PhotonNetwork.IsMasterClient)

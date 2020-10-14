@@ -17,13 +17,14 @@ namespace Assets.Scripts.Player
 
         public void Update(PlayerInputInfo inputInfo)
         {
-            Vector3 nextPos = playerTransform.position + new Vector3(inputInfo.horizontal, 0f, inputInfo.vertical);
+            Vector3 nextPos = playerTransform.position + new Vector3(inputInfo.horizontal, inputInfo.vertical, 0f);
 
             if (CheckNextMoveBlocked(nextPos))
             {
-                float timeMultiplySpeed = Time.deltaTime * speed;
-                playerTransform.position += new Vector3(inputInfo.horizontal * timeMultiplySpeed, 0f,
-                    inputInfo.vertical * timeMultiplySpeed);
+                //float timeMultiplySpeed = Time.deltaTime * speed;
+                //playerTransform.position += new Vector3(inputInfo.horizontal * timeMultiplySpeed, 0f,
+                //    inputInfo.vertical * timeMultiplySpeed);
+                playerTransform.position = nextPos;
             }
         }
 

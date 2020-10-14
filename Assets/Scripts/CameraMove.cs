@@ -26,11 +26,11 @@ public class CameraMove : MonoBehaviour
 
         target = player.transform;
         smoothSpeed = 0.125f;
-        offset = new Vector3(0f, 5f, -6f);
+        offset = new Vector3(0f, 0f, -10f);
 
         Vector3 desiredPos = target.position + offset;
         transform.position = desiredPos;
-        transform.LookAt(target);
+        //transform.LookAt(target);
     }
 
     void FixedUpdate()

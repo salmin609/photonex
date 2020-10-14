@@ -28,23 +28,23 @@ namespace Assets.Scripts.Player
         {
             if (inputTerm)
             {
-                if (Input.anyKey)
+                if (Input.anyKeyDown)
                 {
                     PlayerInputInfo input = default;
 
-                    if (Input.GetKey(KeyCode.W))
+                    if (Input.GetKeyDown(KeyCode.W))
                     {
                         input.vertical = 1f;
                     }
-                    else if (Input.GetKey(KeyCode.S))
+                    else if (Input.GetKeyDown(KeyCode.S))
                     {
                         input.vertical = -1f;
                     }
-                    else if(Input.GetKey(KeyCode.A))
+                    else if(Input.GetKeyDown(KeyCode.A))
                     {
                         input.horizontal = -1f;
                     }
-                    else if (Input.GetKey(KeyCode.D))
+                    else if (Input.GetKeyDown(KeyCode.D))
                     {
                         input.horizontal = 1f;
                     }
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Player
             Utils.Util.CoSeconds(() =>
             {
                 inputTerm = true;
-            }, 0.05f);
+            }, 0.1f);
         }
     }
 }

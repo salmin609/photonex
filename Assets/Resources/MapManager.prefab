@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 3299816595365092454, guid: 7866898a2ac299441be9d219069d0e3d, type: 3}
   player: {fileID: 3830975016981143441, guid: 3b1c30a678095ee42b64dc7a6f48a8b3, type: 3}
-  gridPrefabs: {fileID: 2881392805798649628, guid: 13f139fab269db745a81e36002d4fe06,
+  gridPrefabs: {fileID: 7845952996924150237, guid: 75884bc47aef8e64d96a82082bbdfb7d,
     type: 3}
   item: {fileID: 4808767610945170953, guid: f61f4d1ca8da4fd44ba45d57d2389564, type: 3}
 --- !u!114 &906811789163307932
