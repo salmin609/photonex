@@ -52,6 +52,12 @@ MonoBehaviour:
   - Instance
   - SetPos
   - InstanceItem
+  - CheckNextMoveBlocked
+  - FlipSprite
+  - OnTriggerEnter2D
+  - RPCFlip
+  - OnCollisionStay2D
+  - ActiveTool
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PunDemos.DemoHubEditor", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Utilities.PhotonPlayer.Editor", "PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj", "{25069618-F8E7-4271-90C7-0806A3A77A8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{941D9E62-5173-9369-BE0E-12943374F759}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Utilities.Culling.Editor", "PhotonUnityNetworking.Utilities.Culling.Editor.csproj", "{F4D8A010-5DE4-1980-AB08-475C4FB04B7A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PunDemos.DemoSlotcarEditor", "PunDemos.DemoSlotcarEditor.csproj", "{BCF68157-6960-8538-5B7F-760C0CD385D6}"
@@ -71,6 +73,10 @@ Global
 		{25069618-F8E7-4271-90C7-0806A3A77A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25069618-F8E7-4271-90C7-0806A3A77A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25069618-F8E7-4271-90C7-0806A3A77A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941D9E62-5173-9369-BE0E-12943374F759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941D9E62-5173-9369-BE0E-12943374F759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941D9E62-5173-9369-BE0E-12943374F759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941D9E62-5173-9369-BE0E-12943374F759}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4D8A010-5DE4-1980-AB08-475C4FB04B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F4D8A010-5DE4-1980-AB08-475C4FB04B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4D8A010-5DE4-1980-AB08-475C4FB04B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU

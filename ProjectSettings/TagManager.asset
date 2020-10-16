@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 565228667
+    locked: 0
+  - name: Tool
+    uniqueID: 1263150227
     locked: 0

@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,4 +21,12 @@ public class DelayStartRoomController : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(waitingRoomSceneIndex);
     }
+
+    //public override void OnPlayerEnteredRoom(Player newPlayer)
+    //{
+    //    if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
+    //    {
+    //        PhotonNetwork.LoadLevel(waitingRoomSceneIndex);
+    //    }
+    //}
 }

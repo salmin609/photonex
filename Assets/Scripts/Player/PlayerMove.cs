@@ -8,41 +8,36 @@ namespace Assets.Scripts.Player
         private readonly Transform playerTransform;
         private readonly LayerMask collisionLayer;
         private float speed;
-        public PlayerMove(Transform playerTransform = null)
+        private PlayerItem itemInfo;
+        private Rigidbody2D rigidBody;
+        private PhotonView photonView;
+        private GameObject player;
+        private SpriteRenderer spriteRenderer;
+        public PlayerMove(Transform playerTrans = null)
         {
-            this.playerTransform = playerTransform ? playerTransform : GameObject.Find("Player").transform;
+            playerTransform = playerTrans ? playerTrans : GameObject.Find("Player").transform;
+            player = playerTransform.gameObject;
             collisionLayer = LayerMask.GetMask("ColliderLayer");
-            speed = 30f;
+            itemInfo = player.GetComponent<PlayerBehavior>().PlayerItem;
+            rigidBody = player.GetComponent<Rigidbody2D>();
+            photonView = player.GetPhotonView();
+            spriteRenderer = playerTransform.Find("PlayerGfx").GetComponent<SpriteRenderer>();
+            speed = 2f;
         }
 
         public void Update(PlayerInputInfo inputInfo)
         {
-            Vector3 nextPos = playerTransform.position + new Vector3(inputInfo.horizontal, inputInfo.vertical, 0f);
+            rigidBody.velocity = new Vector2(inputInfo.horizontal * speed, inputInfo.vertical * speed);
+            playerTransform.Find("PlayerGfx").GetComponent<Animator>().SetTrigger("Run");
 
-            if (CheckNextMoveBlocked(nextPos))
+            if (inputInfo.horizontal < 0)
             {
-                //float timeMultiplySpeed = Time.deltaTime * speed;
-                //playerTransform.position += new Vector3(inputInfo.horizontal * timeMultiplySpeed, 0f,
-                //    inputInfo.vertical * timeMultiplySpeed);
-                playerTransform.position = nextPos;
+                player.GetComponent<PlayerBehavior>().FlipSprite(true);
             }
-        }
-
-        private bool CheckNextMoveBlocked(Vector3 nextPos)
-        {
-            Collider2D colInfo = Physics2D.OverlapCircle(nextPos, 0.2f, collisionLayer);
-
-            if (colInfo)
+            else
             {
-                GridSprite gridInfo = colInfo.gameObject.GetComponent<GridSprite>();
-
-                if (gridInfo)
-                {
-                    Utils.Util.DeleteGameObj(colInfo.gameObject);
-                }
-                return false;
+                player.GetComponent<PlayerBehavior>().FlipSprite(false);
             }
-            return true;
         }
     }
 }

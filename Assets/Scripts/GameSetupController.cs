@@ -1,11 +1,12 @@
-﻿using Photon.Pun;
+﻿using System.Collections;
+using Photon.Pun;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSetupController : MonoBehaviour
 {
-    private GameObject checkObj;
-    [SerializeField] private GameObject check;
+    private GameObject mapManager;
     void Start()
     {
         CreatePlayer();
@@ -15,11 +16,27 @@ public class GameSetupController : MonoBehaviour
     {
         Debug.Log("Creating Player..");
         PhotonNetwork.Instantiate("Player", new Vector3(1f, 1f), Quaternion.identity);
-        checkObj = PhotonNetwork.Instantiate("MapManager", new Vector3(0f, 0f), Quaternion.identity);
+        mapManager = PhotonNetwork.Instantiate("MapManager", new Vector3(0f, 0f), Quaternion.identity);
 
         if (PhotonNetwork.IsMasterClient)
         {
-            checkObj.GetComponent<MapManager>().Init();
+            mapManager.GetComponent<MapManager>().Init();
         }
+    }
+
+    public void DisconnectPlayer()
+    {
+        StartCoroutine(DisconnectAndLoad());
+    }
+
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.Disconnect();
+        while(PhotonNetwork.IsConnected)
+        {
+            yield return null;
+        }
+
+        SceneManager.LoadScene("SampleScene");
     }
 }

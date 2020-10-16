@@ -7,11 +7,13 @@ namespace Assets.Scripts.Player
     {
         private readonly Queue<PlayerInputInfo> inputQueue;
         private bool inputTerm;
+        private Joystick joystickInfo;
 
-        public PlayerInput()
+        public PlayerInput(Transform playerTransform)
         {
             inputQueue = new Queue<PlayerInputInfo>();
             inputTerm = true;
+            joystickInfo = playerTransform.gameObject.GetComponent<PlayerBehavior>().JoyStick;
         }
 
         public bool IsPlayerInputEmpty()
@@ -28,30 +30,14 @@ namespace Assets.Scripts.Player
         {
             if (inputTerm)
             {
-                if (Input.anyKeyDown)
+                PlayerInputInfo input = default;
+
+                input.horizontal = joystickInfo.Horizontal;
+                input.vertical = joystickInfo.Vertical;
+
+                if (Mathf.Abs(input.horizontal) > 0f || Mathf.Abs(input.vertical) > 0f)
                 {
-                    PlayerInputInfo input = default;
-
-                    if (Input.GetKeyDown(KeyCode.W))
-                    {
-                        input.vertical = 1f;
-                    }
-                    else if (Input.GetKeyDown(KeyCode.S))
-                    {
-                        input.vertical = -1f;
-                    }
-                    else if(Input.GetKeyDown(KeyCode.A))
-                    {
-                        input.horizontal = -1f;
-                    }
-                    else if (Input.GetKeyDown(KeyCode.D))
-                    {
-                        input.horizontal = 1f;
-                    }
-                    
                     inputQueue.Enqueue(input);
-
-                    GiveInputTerm();
                 }
             }
         }

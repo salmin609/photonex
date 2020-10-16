@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Player;
 using Photon.Pun;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class GridSprite : MonoBehaviour
         End
     }
     private SpriteRenderer spriteRender;
+    private string playerTag;
+    private GameObject currCollidingObj;
     [SerializeField] private Sprite[] groundSprite;
     [SerializeField] private Sprite[] wallSprite;
     [SerializeField] private Sprite endSprite;
@@ -25,6 +28,7 @@ public class GridSprite : MonoBehaviour
     void Start()
     {
         spriteRender = GetComponent<SpriteRenderer>();
+        playerTag = "Player";
     }
 
     void SpriteRPC()
@@ -78,14 +82,29 @@ public class GridSprite : MonoBehaviour
         {
             spriteRender.sprite = groundSprite[0];
             gameObject.layer = LayerMask.NameToLayer("Default");
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+            if (currCollidingObj)
+            {
+                //currCollidingObj.transform.Find("ToolGfx").gameObject.SetActive(false);
+                currCollidingObj.GetComponent<PlayerBehavior>().PlayerItem.DecreItemDuration();
+            }
         }
-        else if (hp <= 2)
+        else if (hp <= 7)
         {
             spriteRender.sprite = wallBreakSprite2;
         }
-        else if (hp <= 4)
+        else if (hp <= 15)
         {
             spriteRender.sprite = wallBreakSprite1;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag(playerTag))
+        {
+            currCollidingObj = col.gameObject;
         }
     }
 

@@ -8,7 +8,9 @@ public class NetworkController : MonoBehaviourPunCallbacks
     
     void Start()
     {
-        Screen.SetResolution(1280, 860, false);
+        //Screen.SetResolution(1280, 860, false);
+        PhotonNetwork.AutomaticallySyncScene = true;
+
         PhotonNetwork.ConnectUsingSettings();
     }
 

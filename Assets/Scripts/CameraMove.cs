@@ -11,7 +11,7 @@ public class CameraMove : MonoBehaviour
     private float smoothSpeed;
     [SerializeField]
     private Vector3 offset;
-    
+
     void Start()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -37,10 +37,12 @@ public class CameraMove : MonoBehaviour
     {
         //Vector3 playerTrans = player.transform.position;
         //transform.position = new Vector3(playerTrans.x, playerTrans.y, -10f);
-
-        Vector3 desiredPos = target.position + offset;
-        Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        transform.position = smoothedPos;
+        if (target)
+        {
+            Vector3 desiredPos = target.position + offset;
+            Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+            transform.position = smoothedPos;
+        }
         //transform.LookAt(target);
     }
 }

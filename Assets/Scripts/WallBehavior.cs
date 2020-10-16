@@ -8,7 +8,7 @@ public class WallBehavior : MonoBehaviour
     private GridSprite sprite;
     void Start()
     {
-        hp = 5;
+        hp = 20;
         sprite = GetComponent<GridSprite>();
     }
 

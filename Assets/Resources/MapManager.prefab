@@ -49,6 +49,11 @@ MonoBehaviour:
   gridPrefabs: {fileID: 7845952996924150237, guid: 75884bc47aef8e64d96a82082bbdfb7d,
     type: 3}
   item: {fileID: 4808767610945170953, guid: f61f4d1ca8da4fd44ba45d57d2389564, type: 3}
+  text0: {fileID: 4900000, guid: 2d7527da8f5f74241bc45843f1fdd526, type: 3}
+  text1: {fileID: 4900000, guid: 8f448a098cc01374ba68ace048761078, type: 3}
+  text2: {fileID: 4900000, guid: 83eb85e3ecc275f4dac39a87a6e5e8ff, type: 3}
+  text3: {fileID: 4900000, guid: dddb2437c4738374bb6481ce19f1cc5d, type: 3}
+  text4: {fileID: 4900000, guid: 83662a8a9390f3d46b51c753ae82c025, type: 3}
 --- !u!114 &906811789163307932
 MonoBehaviour:
   m_ObjectHideFlags: 0
