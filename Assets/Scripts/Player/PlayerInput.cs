@@ -33,7 +33,10 @@ namespace Assets.Scripts.Player
                 PlayerInputInfo input = default;
 
                 input.horizontal = joystickInfo.Horizontal;
+                input.horizontal += Input.GetAxisRaw("Horizontal");
+
                 input.vertical = joystickInfo.Vertical;
+                input.vertical += Input.GetAxisRaw("Vertical");
 
                 if (Mathf.Abs(input.horizontal) > 0f || Mathf.Abs(input.vertical) > 0f)
                 {

@@ -1,10 +1,11 @@
 ﻿using System;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerBehavior : MonoBehaviour
+    public class PlayerBehavior : MonoBehaviourPunCallbacks
     {
         private PlayerInput inputInfo;
         private PlayerMove moveInfo;
@@ -13,8 +14,6 @@ namespace Assets.Scripts.Player
         private Joystick joystick;
         private Rigidbody2D rigidBody;
         private SpriteRenderer playerSprite;
-        private Animator toolAnimator;
-        private bool isWallBreakEnabled;
 
         void Start()
         {
@@ -22,16 +21,14 @@ namespace Assets.Scripts.Player
             inputInfo = new PlayerInput(transform);
             itemInfo = new PlayerItem(transform);
             moveInfo = new PlayerMove(transform);
-            toolAnimator = transform.Find("ToolGfx").GetComponent<Animator>();
             photonView = GetComponent<PhotonView>();
             rigidBody = GetComponent<Rigidbody2D>();
             playerSprite = transform.Find("PlayerGfx").GetComponent<SpriteRenderer>();
-            isWallBreakEnabled = true;
         }
 
         public PlayerItem PlayerItem => itemInfo;
         public Joystick JoyStick => joystick;
-
+        public SpriteRenderer Sprite => playerSprite;
         void Update()
         {
             if (photonView.IsMine)
@@ -68,57 +65,9 @@ namespace Assets.Scripts.Player
             }
         }
 
-        void OnCollisionEnter2D(Collision2D col)
+        public override void OnDisconnected(DisconnectCause cause)
         {
-            if (col.collider.tag == "Item")
-            {
-                itemInfo?.SetItemKind(PlayerItem.ItemKind.Pickax);
-                itemInfo?.SetItemDuration(3);
-                Destroy(col.gameObject);
-                photonView?.RPC("ActiveTool", RpcTarget.AllBuffered);
-
-            }
-        }
-
-        [PunRPC]
-        void ActiveTool()
-        {
-            transform.Find("ToolGfx").gameObject.SetActive(true);
-        }
-
-        void OnCollisionStay2D(Collision2D col)
-        {
-            if (col.collider.tag == "Wall")
-            {
-                if (itemInfo.GetItemKind() == PlayerItem.ItemKind.Pickax)
-                {
-                    GridSprite gridInfo = col.collider.gameObject.GetComponent<GridSprite>();
-
-                    if (gridInfo)
-                    {
-                        if (isWallBreakEnabled)
-                        {
-                            Utils.Util.DeleteGameObj(col.collider.gameObject);
-                            toolAnimator.SetTrigger("Chop");
-
-                            isWallBreakEnabled = false;
-                            Utils.Util.CoSeconds(() =>
-                            {
-                                isWallBreakEnabled = true;
-                            }, 0.1f);
-                            playerSprite.color = Color.white;
-                        }
-                        else
-                        {
-                            playerSprite.color = Color.red;
-                        }
-                    }
-                    else
-                    {
-                        playerSprite.color = Color.blue;
-                    }
-                }
-            }
+            Debug.Log($"Disconnect issue : {cause}");
         }
     }
 }

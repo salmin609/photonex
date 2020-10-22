@@ -102,7 +102,7 @@ public class GridSprite : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag(playerTag))
+        if(col.gameObject.CompareTag("Player"))
         {
             currCollidingObj = col.gameObject;
         }
